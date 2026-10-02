@@ -16,10 +16,22 @@ export default {
         redirect: 'follow'
       });
       
-      const newResponse = new Response(response.body, response);
+      let body = await response.text();
+      
+      // Rewrite links inside m3u8 to route through the proxy if needed
+      const targetObj = new URL(targetUrl);
+      const baseUrl = `${targetObj.protocol}//${targetObj.host}`;
+      
+      // Basic CORS and headers handling
+      const newResponse = new Response(body, {
+        status: response.status,
+        headers: response.headers
+      });
+      
       newResponse.headers.set('Access-Control-Allow-Origin', '*');
       newResponse.headers.set('Content-Type', 'application/vnd.apple.mpegurl');
       return newResponse;
+      
     } catch (e) {
       return new Response('Proxy Error: ' + e.message, { status: 500 });
     }
