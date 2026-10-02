@@ -1,6 +1,12 @@
 export default {
   async fetch(request, env, ctx) {
-    const targetUrl = "https://da86m1sqpm3o0.cloudfront.net/28072023/smil:colorstamilhd11.smil/playlist.m3u8";
+    const urlObj = new URL(request.url);
+    let targetUrl = urlObj.searchParams.get('url');
+    
+    // Fallback to default playlist if no url parameter is passed
+    if (!targetUrl) {
+      targetUrl = "https://da86m1sqpm3o0.cloudfront.net/28072023/smil:colorstamilhd11.smil/playlist.m3u8";
+    }
     
     try {
       const response = await fetch(targetUrl, {
@@ -12,12 +18,10 @@ export default {
       });
       
       let body = await response.text();
-      const targetObj = new URL(targetUrl);
-      const baseUrl = `${targetObj.protocol}//${targetObj.host}`;
       const workerUrl = new URL(request.url);
       const workerBase = `${workerUrl.protocol}//${workerUrl.host}`;
 
-      // Rewrite relative segment links to route through proxy if necessary
+      // Rewrite relative segment links to route through proxy
       const lines = body.split('\n');
       const modifiedLines = lines.map(line => {
         if (line && !line.startsWith('#')) {
