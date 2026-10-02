@@ -10,22 +10,18 @@ export default {
     try {
       const response = await fetch(targetUrl, {
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-          'Referer': 'http://core.itsall.pro/',
+          'User-Agent': 'VLC/3.0.18 LibVLC/3.0.18',
           'Accept': '*/*'
-        }
+        },
+        redirect: 'follow'
       });
       
-      if (!response.ok) {
-        return new Response(`Origin Server Error: ${response.status} ${response.statusText}`, { status: 500 });
-      }
-
       const newResponse = new Response(response.body, response);
       newResponse.headers.set('Access-Control-Allow-Origin', '*');
       newResponse.headers.set('Content-Type', 'application/vnd.apple.mpegurl');
       return newResponse;
     } catch (e) {
-      return new Response('Fetch Exception: ' + e.message, { status: 500 });
+      return new Response('Proxy Error: ' + e.message, { status: 500 });
     }
   },
 };
