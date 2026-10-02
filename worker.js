@@ -1,11 +1,16 @@
 export default {
   async fetch(request, env, ctx) {
-    const targetUrl = "http://core.itsall.pro/live/megapeer/PQubhxj8KGGKSLPAKS/249964.m3u8";
+    const url = new URL(request.url);
+    const targetUrl = url.searchParams.get('url');
+    
+    if (!targetUrl) {
+      return new Response('Please provide a target url using ?url=YOUR_M3U8_LINK', { status: 400 });
+    }
     
     try {
       const response = await fetch(targetUrl, {
         headers: {
-          'User-Agent': 'VLC/3.0.18 LibVLC/3.0.18',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
           'Referer': 'http://core.itsall.pro/',
           'Accept': '*/*'
         }
