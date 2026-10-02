@@ -1,13 +1,13 @@
 export default {
   async fetch(request, env, ctx) {
-    const targetUrl = "http://raztv.online//live/MAGNL39E26/hvhS6xsuZP/34747.m3u8";
+    const targetUrl = "http://core.itsall.pro/live/megapeer/PQubhxj8KGGKSLPAKS/249964.m3u8";
     
     try {
       const response = await fetch(targetUrl, {
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-          'Referer': 'http://raztv.online/',
-          'Origin': 'http://raztv.online'
+          'User-Agent': 'VLC/3.0.18 LibVLC/3.0.18',
+          'Referer': 'http://core.itsall.pro/',
+          'Accept': '*/*'
         }
       });
       
