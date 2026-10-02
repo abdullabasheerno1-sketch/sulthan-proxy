@@ -5,8 +5,9 @@ export default {
     try {
       const response = await fetch(targetUrl, {
         headers: {
-          'User-Agent': 'VLC/3.0.18 LibVLC/3.0.18',
-          'Accept': '*/*'
+          'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+          'Referer': 'http://raztv.online/',
+          'Origin': 'http://raztv.online'
         }
       });
       
